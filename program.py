@@ -41,10 +41,20 @@ def get_search_text_from_user():
 
 def search_folders():
     print("Searching {} for {}".format(folder, text)
+
+    all_matches = []
+
     items=os.listdir(folder)
+
     for item in items:
-        if os.path.isdir(item):
+        full_item = os.path.join(folder, item)
+        if os.path.isdir(full_item):
             continue
+
+        matches = search_file(item, text)
+        all_matches.extend(matches)
+
+    return matches
 
 
 
