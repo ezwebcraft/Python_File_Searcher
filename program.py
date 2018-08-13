@@ -21,6 +21,7 @@ def main():
     for m in matches:
         print(m)
 
+
 def print_header():
     print('--------------------------')
     print('       Search File App    ')
@@ -56,22 +57,24 @@ def search_folders(folder, text):
         if os.path.isdir(full_item):
             continue
 
-        matches = search_file(item, text)
+        matches = search_file(full_item, text)
         all_matches.extend(matches)
 
     return matches
+
 
 def search_file(filename, search_text):
 
     matches = []
 
-    with open(filename,'r', encoding='utf-8') as fin:
+    with open(filename, 'r', encoding='utf-8') as fin:
 
         for line in fin:
             if line.lower().find(search_text) >= 0:
                 matches.append(line)
 
         return matches
+
 
 if __name__ == '__main__':
     main()
