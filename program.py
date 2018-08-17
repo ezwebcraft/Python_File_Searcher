@@ -24,12 +24,13 @@ def main():
     match_count = 0
     for m in matches:
         match_count += 1
-#        print('-------- Matches ---------')
-#        print('file: ' + m.file)
-#        print('line: {}'.format(m.line))
-#        print('match: ' + m.text)
-#        print()
+    #        print('-------- Matches ---------')
+    #        print('file: ' + m.file)
+    #        print('line: {}'.format(m.line))
+    #        print('match: ' + m.text)
+    #        print()
     print("Found {:,} matches.".format(match_count))
+
 
 def print_header():
     print('--------------------------')
@@ -57,7 +58,7 @@ def get_search_text_from_user():
 def search_folders(folder, text):
     print("Searching {} for {}".format(folder, text))
 
-    #all_matches = []
+    # all_matches = []
 
     items = os.listdir(folder)
 
@@ -65,22 +66,19 @@ def search_folders(folder, text):
         full_item = os.path.join(folder, item)
         if os.path.isdir(full_item):
             search_folders(full_item, text)
-            #all_matches.extend(matches)
-            for m in matches:
-                yield m
-
+            # all_matches.extend(matches)
+            yield from matches
         else:
             matches = search_file(full_item, text)
-            #all_matches.extend(matches)
+            # all_matches.extend(matches)
 
-            for m in matches:
-                yield m
-
-    #return matches
+            # for m in matches:
+            #    yield m
+            yield from matches
+    # return matches
 
 
 def search_file(filename, search_text):
-
     with open(filename, 'r', encoding='utf-8') as fin:
         line_num = 0
         for line in fin:
@@ -90,7 +88,7 @@ def search_file(filename, search_text):
                 # matches.append(m)
                 yield m
 
-        #return matches
+        # return matches
 
 
 if __name__ == '__main__':
