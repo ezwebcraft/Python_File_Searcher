@@ -65,16 +65,16 @@ def search_folders(folder, text):
     for item in items:
         full_item = os.path.join(folder, item)
         if os.path.isdir(full_item):
-            search_folders(full_item, text)
+            # search_folders(full_item, text)
             # all_matches.extend(matches)
-            yield from matches
+            yield from search_folders(full_item, text)
         else:
-            matches = search_file(full_item, text)
+            # matches = search_file(full_item, text)
             # all_matches.extend(matches)
 
             # for m in matches:
             #    yield m
-            yield from matches
+            yield from search_folders(full_item, text)
     # return matches
 
 
